@@ -9,9 +9,6 @@
 //----------------------------------------------------------------------------------------
 
 
-#define CONCATENATE(a, b) a ## b
-
-
 /**
  * There is name of logs directory.
  * If you will change name of directory,
@@ -66,7 +63,7 @@ const char* COLOR_RESET  = "\x1b[0m";
  * @return true if it's opened.
  * @return false if it's closed.
  */
-static bool IsLogOpen();
+static bool LogIsOpen();
 
 
 /**
@@ -148,15 +145,21 @@ static void LogDirectoryCreate();
 
 void LogOpen(const Place place) 
 {
-    if (IsLogOpen())
+    if (LogIsOpen())
     {
         LogEmergencyPrint(place, "You trying to open file that is already opened.");
         return;
     }
 
     LogDirectoryCreate();
-    
+
     logFile = fopen(LOG_FILE_NAME, "a");
+
+    if (!LogIsOpen())
+    {
+        printf("FUUUU\n");
+    }
+
     setvbuf(logFile, NULL, _IONBF, 0);
 
     fprintf(logFile, "\n\n\\* This log was created ");
@@ -167,7 +170,7 @@ void LogOpen(const Place place)
 
 void LogClose(const Place place)
 {
-    if (IsLogOpen())
+    if (LogIsOpen())
     {
         fprintf(logFile, "\n\\* This log was closed ");
         LogPrintTime(logFile);
@@ -183,14 +186,30 @@ void LogClose(const Place place)
 
 void LogPrint(logMode_t logMode, Place place, const char* message, ...) 
 {   
-    if (!IsLogOpen())
+    if (!LogIsOpen())
         LogEmergencyPrint(place, "You are trying LOG_PRINT(), but you didn't "
-                                 "use LogOpen() before. Try to use it in main.cpp.");
+                                 "use LogOpen() before. Try to use it in main.cpp.\n");
 
     va_list messageArgs;
     va_start(messageArgs, message);
 
     LogPrintInfo(logFile, logMode, &place);
+    vfprintf(logFile, message, messageArgs);
+    fprintf(logFile, "\n");
+
+    va_end(messageArgs);
+}
+
+
+void LogDummyPrint(const Place place, const char* message, ...)
+{
+    if (!LogIsOpen())
+        LogEmergencyPrint(place, "You are trying print message to closed log file.\n");
+
+    va_list messageArgs;
+    va_start(messageArgs, message);
+
+    fprintf(logFile, "\t");
     vfprintf(logFile, message, messageArgs);
     fprintf(logFile, "\n");
 
@@ -214,7 +233,7 @@ int ColoredPrintf(color_t color, const char* format, ...) {
 //----------------------------------------------------------------------------------------
 
 
-static bool IsLogOpen()
+static bool LogIsOpen()
 {
     if (logFile == NULL)
         return false;
@@ -309,7 +328,7 @@ static void LogPrintInfo(FILE* outputFile, const logMode_t logMode, const Place*
     LogPrintMode(outputFile, logMode);
     LogPrintTime(outputFile);
     LogPrintPlace(outputFile, place);
-    fprintf(outputFile, "\n");
+    fprintf(outputFile, "\n\t");
 }
 
 
@@ -317,7 +336,7 @@ static void LogDirectoryCreate()
 {
     struct stat myStat = {};
     if (stat(LOG_DIRECTORY_NAME, &myStat) == -1) {
-        mkdir(LOG_DIRECTORY_NAME);
+        mkdir(LOG_DIRECTORY_NAME, 0755);
     }
 }
 

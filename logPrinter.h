@@ -73,7 +73,7 @@
 
 /**
  * This definition provides you more
- * convinient way to use logClosw().
+ * convinient way to use LogClose().
  * 
  * Also this function will print
  * date, time and place, where and
@@ -81,6 +81,18 @@
  */
 #define LOG_CLOSE()        \
     LogClose(GET_PLACE()); \
+
+
+/**
+ * This definition provides you more
+ * convnient way to use LogDummyPrint().
+ * 
+ * This function print your message 
+ * without information about place and time
+ * to log file.
+ */
+#define LOG_DUMMY_PRINT(...)                    \
+    LogDummyPrint(GET_PLACE(), __VA_ARGS__);    \
 
 
 #else
@@ -93,6 +105,7 @@
 #define LOG_PRINT(logMode, ...) ;
 #define LOG_OPEN() ;
 #define LOG_CLOSE() ;
+#define LOG_DUMMY_PRINT(...) ;
 
 
 #endif // LOG_SWITCHING_OFF
@@ -174,9 +187,8 @@ void LogClose(const Place place);
 /**
  * This function print your message
  * to "logs/log.txt" by default (you can
- * chane log's output file by 
- * LogSetFileName()). Also it prints
- * Place where it was used.
+ * chane log's output file in defines in logPrinter.cpp). 
+ * Also it prints Place where it was used.
  * 
  * @param logMode Note to log message.
  * @param place   Place that will be printed.
@@ -184,6 +196,14 @@ void LogClose(const Place place);
  *                Next arguments will be used in message
  */
 void LogPrint(logMode_t logMode, Place place, const char* message, ...);
+
+
+/**
+ * This function print your message to "logs/log.txt" 
+ * by default (you can change it in defines in logPrinter.cpp).
+ * Message will be printed without time and place.
+ */
+void LogDummyPrint(const Place place, const char* message, ...);
 
 
 /**
