@@ -20,12 +20,19 @@ where you print it and time when you print it.
 
 3. Open and close log file in main.cpp and
 print some logs in any source file like:
+
 ```int main() {```
+
 ```LOG_OPEN();```
+
 ```...```
+
 ```LOG_PRINT(INFO, "Value = %d", value);```
+
 ```...```
+
 ```LOG_CLOSE();```
+
 ```return 0; }```
 
 
