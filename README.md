@@ -16,7 +16,7 @@ where you print it and time when you print it.
 ```git clone https://github.com/Afobaboa/logPrinter```
 
 2. Include logPrinter.h like
-```#include "logPrinter/logPrinter.h```
+```#include "logPrinter/logPrinter.h"```
 
 3. Open and close log file in main.cpp and
 print some logs in any source file like:
