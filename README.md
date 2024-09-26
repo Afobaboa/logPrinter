@@ -21,7 +21,9 @@ where you print it and time when you print it.
 3. Open and close log file in main.cpp and
 print some logs in any source file like:
 
-```int main() {```
+```int main()```
+
+```{```
 
 ```LOG_OPEN();```
 
@@ -33,7 +35,9 @@ print some logs in any source file like:
 
 ```LOG_CLOSE();```
 
-```return 0; }```
+```return 0; ```
+
+```}```
 
 
 # Documentation
