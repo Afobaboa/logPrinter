@@ -255,7 +255,7 @@ static void LogPrintMode(FILE* outputFile, const logMode_t logMode)
         break;
         
     case INFO:
-        fprintf(outputFile, "INFO");
+        fprintf(outputFile, "INFO: ");
         break;
 
     default:
