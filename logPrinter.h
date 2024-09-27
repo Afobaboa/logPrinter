@@ -44,6 +44,13 @@
     }                              \
 
 
+/**
+ * This definition return 
+ * name of your variable.
+ */
+#define GET_NAME(var) #var
+
+
 #ifndef LOG_SWITCH_OFF
 
 
