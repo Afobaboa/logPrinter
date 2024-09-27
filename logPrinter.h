@@ -130,7 +130,7 @@ struct Place
 {
     const char* file;        /**< Name of file.     */
     const char* function;    /**< Name of function. */
-    const int   line;        /**< Number of line.   */
+    int         line;        /**< Number of line.   */
 };
 
 
