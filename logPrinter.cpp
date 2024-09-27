@@ -209,9 +209,7 @@ void LogDummyPrint(const Place place, const char* message, ...)
     va_list messageArgs;
     va_start(messageArgs, message);
 
-    fprintf(logFile, "\t");
     vfprintf(logFile, message, messageArgs);
-    fprintf(logFile, "\n");
 
     va_end(messageArgs);
 }
