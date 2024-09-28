@@ -29,6 +29,12 @@
 //----------------------------------------------------------------------------------------
 
 
+#include "logPrinterConfigs.h"
+
+
+//----------------------------------------------------------------------------------------
+
+
 /**
  * This function automaticaly gets
  * file, function and line information
@@ -51,6 +57,9 @@
 #define GET_NAME(var) #var
 
 
+//----------------------------------------------------------------------------------------
+
+
 #ifndef LOG_SWITCH_OFF
 
 
@@ -63,7 +72,7 @@
  * convinient syntax.
  */
 #define LOG_PRINT(logMode, ...)                  \
-    LogPrint(logMode, GET_PLACE(), __VA_ARGS__); \
+    LogPrint(logMode, GET_PLACE(), __VA_ARGS__); 
 
 
 /**
@@ -75,7 +84,7 @@
  * when log was opened.
  */
 #define LOG_OPEN()        \
-    LogOpen(GET_PLACE()); \
+    LogOpen(GET_PLACE()); 
 
 
 /**
@@ -87,7 +96,7 @@
  * when log was closed
  */
 #define LOG_CLOSE()        \
-    LogClose(GET_PLACE()); \
+    LogClose(GET_PLACE()); 
 
 
 /**
@@ -99,7 +108,7 @@
  * to log file.
  */
 #define LOG_DUMMY_PRINT(...)                    \
-    LogDummyPrint(GET_PLACE(), __VA_ARGS__);    \
+    LogDummyPrint(GET_PLACE(), __VA_ARGS__);    
 
 
 #else

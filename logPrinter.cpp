@@ -157,7 +157,7 @@ void LogOpen(const Place place)
 
     if (!LogIsOpen())
     {
-        printf("FUUUU\n");
+        LogEmergencyPrint(place, "FUUUUck\n");
     }
 
     setvbuf(logFile, NULL, _IONBF, 0);
@@ -187,8 +187,11 @@ void LogClose(const Place place)
 void LogPrint(logMode_t logMode, Place place, const char* message, ...) 
 {   
     if (!LogIsOpen())
+    {
         LogEmergencyPrint(place, "You are trying LOG_PRINT(), but you didn't "
                                  "use LogOpen() before. Try to use it in main.cpp.\n");
+        return;
+    }
 
     va_list messageArgs;
     va_start(messageArgs, message);
@@ -268,7 +271,7 @@ static void LogEmergencyPrint(const Place place, const char* message)
     LogDirectoryCreate();
 
     FILE* logEmergencyFile = fopen(LOG_EMERGENCY_FILE_NAME, "a");
-    setvbuf(logFile, NULL, _IONBF, 0);
+    setvbuf(logEmergencyFile, NULL, _IONBF, 0);
 
     LogPrintInfo(logEmergencyFile, ERROR, &place);
     fprintf(logEmergencyFile, "\t%s\n", message);
@@ -340,8 +343,3 @@ static void LogDirectoryCreate()
 
 
 //----------------------------------------------------------------------------------------
-
-
-#undef LOG_DIRECTORY_NAME
-#undef LOG_FILE_NAME
-#undef LOG_EMERGENCY_FILE_NAME
