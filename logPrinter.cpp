@@ -216,7 +216,10 @@ void LogPrint(logMode_t logMode, Place place, const char* message, ...)
 void LogDummyPrint(const Place place, const char* message, ...)
 {
     if (!LogIsOpen())
+    {
         LogEmergencyPrint(place, "You are trying print message to closed log file.\n");
+        return;
+    }
 
     va_list messageArgs;
     va_start(messageArgs, message);
@@ -240,7 +243,7 @@ int ColoredPrintf(color_t color, const char* format, ...) {
 }
 
 
-static char* GetArrayPrintingFormat(const size_t maxSize)
+char* GetArrayPrintingFormat(const size_t maxSize)
 {
     const size_t maxFormatLength   = 1 + strlen("\t[%zu] = 0x") + 
                                                 GetDigitsCount(GetDigitsCount(ULONG_MAX));
@@ -251,6 +254,15 @@ static char* GetArrayPrintingFormat(const size_t maxSize)
         LOG_PRINT(ERROR, "Can't set format.");
 
     return format;
+}
+
+
+void LogPrintELem(void* elemPtr, const size_t elemSize)
+{
+    for (size_t byteNum = 0; byteNum < elemSize; byteNum++)
+    {
+        LOG_DUMMY_PRINT("%02X", (unsigned char) *((char*) elemPtr + byteNum));
+    }
 }
 
 

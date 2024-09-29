@@ -72,7 +72,7 @@
  * convinient syntax.
  */
 #define LOG_PRINT(logMode, ...)                  \
-    LogPrint(logMode, GET_PLACE(), __VA_ARGS__); 
+    LogPrint(logMode, GET_PLACE(), __VA_ARGS__) 
 
 
 /**
@@ -84,7 +84,7 @@
  * when log was opened.
  */
 #define LOG_OPEN()        \
-    LogOpen(GET_PLACE()); 
+    LogOpen(GET_PLACE()) 
 
 
 /**
@@ -96,7 +96,7 @@
  * when log was closed
  */
 #define LOG_CLOSE()        \
-    LogClose(GET_PLACE()); 
+    LogClose(GET_PLACE()) 
 
 
 /**
@@ -108,7 +108,7 @@
  * to log file.
  */
 #define LOG_DUMMY_PRINT(...)                    \
-    LogDummyPrint(GET_PLACE(), __VA_ARGS__);    
+    LogDummyPrint(GET_PLACE(), __VA_ARGS__)    
 
 
 #else
@@ -118,10 +118,10 @@
  * Where are switching off
  * all log's defines.
  */
-#define LOG_PRINT(logMode, ...) ;
-#define LOG_OPEN() ;
-#define LOG_CLOSE() ;
-#define LOG_DUMMY_PRINT(...) ;
+#define LOG_PRINT(logMode, ...) 
+#define LOG_OPEN() 
+#define LOG_CLOSE() 
+#define LOG_DUMMY_PRINT(...) 
 
 
 #endif // LOG_SWITCHING_OFF
@@ -246,6 +246,12 @@ int ColoredPrintf(color_t color, const char* format, ...);
  * 
  */
 char* GetArrayPrintingFormat(const size_t maxSize);
+
+
+/**
+ * 
+ */
+void LogPrintELem(void* elemPtr, const size_t elemSize);
 
 
 //----------------------------------------------------------------------------------------
