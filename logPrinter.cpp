@@ -1,7 +1,10 @@
-#include <stdarg.h>
 #include <sys/stat.h>
+#include <stdarg.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
 #include <time.h>
+#include <string.h>
 
 #include "logPrinter.h"
 
@@ -140,6 +143,12 @@ static void PrintColor(const color_t color);
 static void LogDirectoryCreate();
 
 
+/**
+ * 
+ */
+static size_t GetDigitsCount(size_t number);
+
+
 //----------------------------------------------------------------------------------------
 
 
@@ -228,6 +237,20 @@ int ColoredPrintf(color_t color, const char* format, ...) {
     
     va_end(args);
     return result;
+}
+
+
+static char* GetArrayPrintingFormat(const size_t maxSize)
+{
+    const size_t maxFormatLength   = 1 + strlen("\t[%zu] = 0x") + 
+                                                GetDigitsCount(GetDigitsCount(ULONG_MAX));
+    const size_t maxSizeDigisCount = GetDigitsCount(maxSize);
+    char*        format            = (char*) calloc(maxFormatLength, sizeof(char));
+
+    if (sprintf(format, "\t[%%%zuzu] = 0x", maxSizeDigisCount) < 0)
+        LOG_PRINT(ERROR, "Can't set format.");
+
+    return format;
 }
 
 
@@ -339,6 +362,19 @@ static void LogDirectoryCreate()
     if (stat(LOG_DIRECTORY_NAME, &myStat) == -1) {
         mkdir(LOG_DIRECTORY_NAME, 0755);
     }
+}
+
+
+static size_t GetDigitsCount(size_t number)
+{
+    size_t count = 0;
+    while (number > 0) 
+    {
+        number /= 10;
+        count++;
+    }
+
+    return count;
 }
 
 

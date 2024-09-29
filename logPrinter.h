@@ -242,6 +242,12 @@ void LogDummyPrint(const Place place, const char* message, ...);
 int ColoredPrintf(color_t color, const char* format, ...);
 
 
+/**
+ * 
+ */
+char* GetArrayPrintingFormat(const size_t maxSize);
+
+
 //----------------------------------------------------------------------------------------
 
 
