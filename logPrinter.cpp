@@ -278,6 +278,19 @@ void LogPrintELem(const Place place, void* elemPtr, const size_t elemSize)
 }
 
 
+bool IsPlaceCorrect(const Place place)
+{
+    if (place.file     == NULL ||
+        place.function == NULL ||
+        place.line     == 0)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+
 //----------------------------------------------------------------------------------------
 
 

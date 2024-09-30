@@ -271,6 +271,12 @@ char* GetArrayPrintingFormat(const Place place, const size_t maxSize);
 void LogPrintELem(const Place place, void* elemPtr, const size_t elemSize);
 
 
+/**
+ * 
+ */
+bool IsPlaceCorrect(const Place place);
+
+
 //----------------------------------------------------------------------------------------
 
 
