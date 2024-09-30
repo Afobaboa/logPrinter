@@ -154,6 +154,9 @@ static size_t GetDigitsCount(size_t number);
 
 void LogOpen(const Place place) 
 {
+    if (!IsPlaceCorrect(place))
+        LogEmergencyPrint(GET_PLACE(), "Wrong place!!!\n");
+
     if (LogIsOpen())
     {
         LogEmergencyPrint(place, "You trying to open file that is already opened.");
@@ -179,6 +182,9 @@ void LogOpen(const Place place)
 
 void LogClose(const Place place)
 {
+    if (!IsPlaceCorrect(place))
+        LogEmergencyPrint(GET_PLACE(), "Wrong place!!!\n");\
+    
     if (LogIsOpen())
     {
         fprintf(logFile, "\n\\* This log was closed ");
@@ -195,6 +201,12 @@ void LogClose(const Place place)
 
 void LogPrint(logMode_t logMode, Place place, const char* message, ...) 
 {   
+    if (!IsPlaceCorrect(place))
+    {
+        LogEmergencyPrint(GET_PLACE(), "Wrong place!!!\n");
+        return;
+    }
+
     if (!LogIsOpen())
     {
         LogEmergencyPrint(place, "You are trying LOG_PRINT(), but you didn't "
@@ -215,6 +227,12 @@ void LogPrint(logMode_t logMode, Place place, const char* message, ...)
 
 void LogDummyPrint(const Place place, const char* message, ...)
 {
+    if (!IsPlaceCorrect(place))
+    {
+        LogEmergencyPrint(GET_PLACE(), "Wrong place!!!\n");
+        return;
+    }
+
     if (!LogIsOpen())
     {
         LogEmergencyPrint(place, "You are trying print message to closed log file.\n");
@@ -265,6 +283,12 @@ char* GetArrayPrintingFormat(const Place place, const size_t maxSize)
 
 void LogPrintELem(const Place place, void* elemPtr, const size_t elemSize)
 {
+    if (!IsPlaceCorrect(place))
+    {
+        LogEmergencyPrint(GET_PLACE(), "Wrong place!!!\n");
+        return;
+    }
+
     if (elemPtr == NULL)
     {
         LogEmergencyPrint(place, "elemPtr = NULL.\n");
