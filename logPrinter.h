@@ -111,6 +111,21 @@
     LogDummyPrint(GET_PLACE(), __VA_ARGS__)    
 
 
+/**
+ * 
+ */
+#define GET_ARRAY_PRINTING_FORMAT(maxSize)       \
+    GetArrayPrintingFormat(GET_PLACE(), maxSize)
+
+
+/**
+ * 
+ */
+#define LOG_PRINT_ELEM(elemPtr, elemSize)        \
+    LogPrintELem(GET_PLACE(), elemPtr, elemSize)
+
+
+
 #else
 
 
@@ -122,6 +137,8 @@
 #define LOG_OPEN() 
 #define LOG_CLOSE() 
 #define LOG_DUMMY_PRINT(...) 
+#define GET_ARRAY_PRINTING_FORMAT(maxSize) 
+#define LOG_PRINT_ELEM(elemPtr, elemSize) 
 
 
 #endif // LOG_SWITCHING_OFF
@@ -245,13 +262,13 @@ int ColoredPrintf(color_t color, const char* format, ...);
 /**
  * 
  */
-char* GetArrayPrintingFormat(const size_t maxSize);
+char* GetArrayPrintingFormat(const Place place, const size_t maxSize);
 
 
 /**
  * 
  */
-void LogPrintELem(void* elemPtr, const size_t elemSize);
+void LogPrintELem(const Place place, void* elemPtr, const size_t elemSize);
 
 
 //----------------------------------------------------------------------------------------

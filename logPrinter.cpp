@@ -243,22 +243,34 @@ int ColoredPrintf(color_t color, const char* format, ...) {
 }
 
 
-char* GetArrayPrintingFormat(const size_t maxSize)
+char* GetArrayPrintingFormat(const Place place, const size_t maxSize)
 {
-    const size_t maxFormatLength   = 1 + strlen("\t[%zu] = 0x") + 
+    const size_t maxFormatLength    = 1 + strlen("\t[%zu] = 0x") + 
                                                 GetDigitsCount(GetDigitsCount(ULONG_MAX));
-    const size_t maxSizeDigisCount = GetDigitsCount(maxSize);
-    char*        format            = (char*) calloc(maxFormatLength, sizeof(char));
+    const size_t maxSizeDigitsCount = GetDigitsCount(maxSize);
 
-    if (sprintf(format, "\t[%%%zuzu] = 0x", maxSizeDigisCount) < 0)
+    char* format = (char*) calloc(maxFormatLength, sizeof(char));
+    if (format == NULL)
+    {
+        LogEmergencyPrint(place, "Memory for format can't be allocated.\n");
+        return NULL;
+    }
+
+    if (sprintf(format, "\t[%%%zuzu] = 0x", maxSizeDigitsCount) < 0)
         LOG_PRINT(ERROR, "Can't set format.");
 
     return format;
 }
 
 
-void LogPrintELem(void* elemPtr, const size_t elemSize)
+void LogPrintELem(const Place place, void* elemPtr, const size_t elemSize)
 {
+    if (elemPtr == NULL)
+    {
+        LogEmergencyPrint(place, "elemPtr = NULL.\n");
+        return;
+    }
+    
     for (size_t byteNum = 0; byteNum < elemSize; byteNum++)
     {
         LOG_DUMMY_PRINT("%02X", (unsigned char) *((char*) elemPtr + byteNum));
