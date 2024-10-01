@@ -265,7 +265,7 @@ char* GetArrayPrintingFormat(const Place place, const size_t maxSize)
 {
     const size_t maxFormatLength    = 1 + strlen("\t[%zu] = 0x") + 
                                                 GetDigitsCount(GetDigitsCount(ULONG_MAX));
-    const size_t maxSizeDigitsCount = GetDigitsCount(maxSize);
+    const size_t maxSizeDigitsCount = GetDigitsCount(maxSize - 1);
 
     char* format = (char*) calloc(maxFormatLength, sizeof(char));
     if (format == NULL)
