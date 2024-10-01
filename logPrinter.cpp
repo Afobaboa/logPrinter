@@ -275,7 +275,9 @@ char* GetArrayPrintingFormat(const Place place, const size_t maxSize)
     }
 
     if (sprintf(format, "\t[%%%zuzu] = ", maxSizeDigitsCount) < 0)
+    {
         LOG_PRINT(ERROR, "Can't set format.");
+    }
 
     return format;
 }

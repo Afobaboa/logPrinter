@@ -111,6 +111,22 @@
     LogDummyPrint(GET_PLACE(), __VA_ARGS__)    
 
 
+#else
+
+
+/** 
+ * Where are switching off
+ * all log's defines.
+ */
+#define LOG_PRINT(logMode, ...) 
+#define LOG_OPEN() 
+#define LOG_CLOSE() 
+#define LOG_DUMMY_PRINT(...) 
+
+
+#endif // LOG_SWITCHING_OFF
+
+
 /**
  * 
  */
@@ -123,25 +139,6 @@
  */
 #define LOG_PRINT_ELEM(elemPtr, elemSize)        \
     LogPrintELem(GET_PLACE(), elemPtr, elemSize)
-
-
-
-#else
-
-
-/** 
- * Where are switching off
- * all log's defines.
- */
-#define LOG_PRINT(logMode, ...) 
-#define LOG_OPEN() 
-#define LOG_CLOSE() 
-#define LOG_DUMMY_PRINT(...) 
-#define GET_ARRAY_PRINTING_FORMAT(maxSize) 
-#define LOG_PRINT_ELEM(elemPtr, elemSize) 
-
-
-#endif // LOG_SWITCHING_OFF
 
 
 //----------------------------------------------------------------------------------------
