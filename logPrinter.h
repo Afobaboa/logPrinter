@@ -57,6 +57,20 @@
 #define GET_NAME(var) #var
 
 
+/**
+ * 
+ */
+#define GET_ARRAY_PRINTING_FORMAT(maxSize)       \
+    GetArrayPrintingFormat(GET_PLACE(), maxSize)
+
+
+/**
+ * 
+ */
+#define LOG_PRINT_ELEM(elemPtr, elemSize)        \
+    LogPrintELem(GET_PLACE(), elemPtr, elemSize)
+
+
 //----------------------------------------------------------------------------------------
 
 
@@ -125,20 +139,6 @@
 
 
 #endif // LOG_SWITCHING_OFF
-
-
-/**
- * 
- */
-#define GET_ARRAY_PRINTING_FORMAT(maxSize)       \
-    GetArrayPrintingFormat(GET_PLACE(), maxSize)
-
-
-/**
- * 
- */
-#define LOG_PRINT_ELEM(elemPtr, elemSize)        \
-    LogPrintELem(GET_PLACE(), elemPtr, elemSize)
 
 
 //----------------------------------------------------------------------------------------
