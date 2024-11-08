@@ -49,7 +49,7 @@
         .file     = __FILE__,      \
         .function = __FUNCTION__,  \
         .line     = __LINE__       \
-    }                              \
+    }
 
 
 /**
@@ -169,8 +169,8 @@ struct VariableInitInfo
     (struct VariableInitInfo)               \
     {                                       \
         .name  = GET_NAME(variable),        \
-        .place = GET_PLACE();               \
-    }
+        .place = GET_PLACE(),               \
+    }                                       
 
 
 //----------------------------------------------------------------------------------------
