@@ -159,6 +159,20 @@ struct Place
 };
 
 
+struct VariableInitInfo
+{
+    char* name;
+    Place place;
+};
+
+#define GET_VARIABLE_INIT_INFO(variable)    \
+    (struct VariableInitInfo)               \
+    {                                       \
+        .name  = GET_NAME(variable),        \
+        .place = GET_PLACE();               \
+    }
+
+
 //----------------------------------------------------------------------------------------
 
 
